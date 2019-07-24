@@ -4,22 +4,9 @@ import { Flex, Box } from '@rebass/emotion';
 import styled from '@emotion/styled';
 import {
   Brand,
-  Toolbar,
-  ToolbarGroup,
-  Button,
-  ToolbarItem,
-  Dropdown,
-  ButtonVariant,
   DropdownItem,
-  KebabToggle,
-  DropdownToggle,
   Page,
   PageHeader,
-  PageSidebar,
-  Nav,
-  NavList,
-  NavExpandable,
-  NavItem,
   PageSection,
   Grid,
   GridItem,
@@ -43,10 +30,9 @@ import {
   startStoragePolling,
   stopStoragePolling,
 } from '../common/duck/actions';
-
 import openshiftLogo from '../../assets/Logo-Cluster_Application_Migration.svg';
-
 import { StatusPollingInterval } from '../common/duck/sagas';
+import { PollingContext } from './duck/context';
 
 interface IProps {
   loggingIn?: boolean;
@@ -55,7 +41,6 @@ interface IProps {
   allStorage: any[];
   allPlans: any[];
   fetchPlans: () => void;
-  fetchStorage: () => void;
   startStoragePolling: (params) => void;
   stopStoragePolling: () => void;
   startClusterPolling: (params) => void;
@@ -151,7 +136,7 @@ class HomeComponent extends React.Component<IProps, IState> {
     return false;
   };
 
-  componentDidMount = () => {
+  startDefaultClusterPolling = () => {
     const clusterPollParams = {
       asyncFetch: clusterOperations.fetchClustersGenerator,
       callback: this.handleClusterPoll,
@@ -160,6 +145,10 @@ class HomeComponent extends React.Component<IProps, IState> {
       retryAfter: 5,
       stopAfterRetries: 2,
     };
+    this.props.startClusterPolling(clusterPollParams);
+  }
+
+  startDefaultStoragePolling = () => {
     const storagePollParams = {
       asyncFetch: storageOperations.fetchStorageGenerator,
       callback: this.handleStoragePoll,
@@ -168,35 +157,17 @@ class HomeComponent extends React.Component<IProps, IState> {
       retryAfter: 5,
       stopAfterRetries: 2,
     };
-
-    this.props.startClusterPolling(clusterPollParams);
     this.props.startStoragePolling(storagePollParams);
+  }
+
+  componentDidMount = () => {
+    this.startDefaultClusterPolling();
+    this.startDefaultStoragePolling();
     this.props.fetchPlans();
   };
 
   render() {
-    const { isDropdownOpen, activeItem, activeGroup, isNavOpen } = this.state;
-    const PageNav = (
-      <Nav onSelect={this.onNavSelect} aria-label="Nav">
-        <NavList>
-          <NavExpandable
-            title="System Panel"
-            groupId="grp-1"
-            isActive={activeGroup === 'grp-1'}
-            isExpanded
-          >
-            <NavItem
-              to="#expandable-1"
-              groupId="grp-1"
-              itemId="grp-1_itm-1"
-              isActive={activeItem === 'grp-1_itm-1'}
-            >
-              Overview
-            </NavItem>
-          </NavExpandable>
-        </NavList>
-      </Nav>
-    );
+    const { activeItem, activeGroup } = this.state;
 
     const StyledPageHeader = styled(PageHeader)`
       .pf-c-brand {
@@ -279,7 +250,22 @@ class HomeComponent extends React.Component<IProps, IState> {
           <PageSection>
             <Flex justifyContent="center">
               <Box flex="0 0 100%">
-                <DetailViewComponent />
+                <PollingContext.Provider value={{
+                  startDefaultClusterPolling: () => this.startDefaultClusterPolling(),
+                  startDefaultStoragePolling: () => this.startDefaultStoragePolling(),
+                  stopClusterPolling: () => this.props.stopClusterPolling(),
+                  stopStoragepolling: () => this.props.stopStoragePolling(),
+                  startAllDefaultPolling: () => {
+                    this.startDefaultClusterPolling();
+                    this.startDefaultStoragePolling();
+                  },
+                  stopAllPolling: () => {
+                    this.props.stopClusterPolling();
+                    this.props.stopStoragePolling();
+                  }
+                }}>
+                  <DetailViewComponent />
+                </PollingContext.Provider>
               </Box>
             </Flex>
           </PageSection>
@@ -306,7 +292,6 @@ export default connect(
   }),
   dispatch => ({
     onLogout: () => console.debug('TODO: IMPLEMENT: user logged out.'),
-    fetchStorage: () => dispatch(storageOperations.fetchStorage()),
     fetchPlans: () => dispatch(planOperations.fetchPlans()),
     startStoragePolling: params => dispatch(startStoragePolling(params)),
     stopStoragePolling: () => dispatch(stopStoragePolling()),
