@@ -46,32 +46,22 @@ class DashboardCard extends Component<IProps, IState> {
     const { isOpen } = this.state;
     if (isError) {
       return (
-        <Card style={{ minHeight: '100%', height: '16em' }}>
-          <Flex
-            css={css`
-              height: 100%;
-              text-align: center;
-              margin: auto;
-            `}
-          >
-            <Box flex="1" m="auto">
-              <Text color={theme.colors.statusRed} fontSize={[2, 3, 4]}>
-                <StatusIcon isReady={false} />
-                Failed to fetch
-              </Text>
-            </Box>
-          </Flex>
+        <Card>
+          <React.Fragment>
+            <CardBody>
+              <StatusIcon isReady={false} />
+              Failed to fetch
+            </CardBody>
+          </React.Fragment>
         </Card>
       );
     }
     return (
-      <Card style={{ minHeight: '100%', height: '16em' }}>
+      <Card className="pf-m-dashboard-card">
         {dataList && !isFetching ? (
           <React.Fragment>
             <CardHeader>
-              <Title size="md">
-                <HeaderText type={type} dataList={dataList} />
-              </Title>
+              <HeaderText type={type} dataList={dataList} />
             </CardHeader>
             <CardBody>
               {type === 'plans' ? (
@@ -85,19 +75,11 @@ class DashboardCard extends Component<IProps, IState> {
             </CardFooter>
           </React.Fragment>
         ) : (
-            <Flex
-              css={css`
-              height: 100%;
-              text-align: center;
-              margin: auto;
-            `}
-            >
-              <Box flex="1" m="auto">
-                <Loader type="ThreeDots" color={theme.colors.navy} height="100" width="100" />
-                <Text fontSize={[2, 3, 4]}> Loading </Text>
-              </Box>
-            </Flex>
-          )}
+          <CardBody>
+            <Loader type="ThreeDots" color={theme.colors.navy} height="100" width="100" />
+            Loading
+          </CardBody>
+        )}
       </Card>
     );
   }

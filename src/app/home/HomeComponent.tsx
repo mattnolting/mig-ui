@@ -171,6 +171,36 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
     <Page header={Header}>
       <PageSection>
         <Grid gutter="md">
+          <GridItem lg={4}>
+            <DashboardCard
+              type="clusters"
+              title="Clusters"
+              dataList={allClusters}
+              isFetching={isFetchingClusters}
+              isError={isClusterError}
+            />
+          </GridItem>
+          <GridItem lg={4}>
+            <DashboardCard
+              title="Replication Repositories"
+              type="repositories"
+              dataList={allStorage}
+              isFetching={isFetchingStorage}
+              isError={isStorageError}
+            />
+          </GridItem>
+          <GridItem lg={4}>
+            <DashboardCard
+              type="plans"
+              title="Migration Plans"
+              planStatusCounts={planStatusCounts}
+              dataList={allPlans}
+              isFetching={isFetchingPlans}
+              isError={isPlanError}
+            />
+          </GridItem>
+        </Grid>
+        {/* <Grid gutter="md">
           <GridItem span={4}>
             <DashboardCard
               type="clusters"
@@ -199,7 +229,7 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
               isError={isPlanError}
             />
           </GridItem>
-        </Grid>
+        </Grid> */}
       </PageSection>
       <PageSection>
         <Flex justifyContent="center">

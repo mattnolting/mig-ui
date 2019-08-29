@@ -25,28 +25,30 @@ const CardStatusComponent = ({ type, dataList, ...props }) => {
 
   return (
     <React.Fragment>
-      <Grid>
-        <GridItem span={1} style={{ textAlign: 'center', margin: 'auto' }}>
-          <StatusIcon isReady={true} />
-        </GridItem>
-        <GridItem span={1} style={{ fontSize: '28px' }}>
-          {successList.length}
-        </GridItem>
-        <GridItem span={10} style={{ margin: 'auto 0 auto 0' }}>
+      <dl className="pf-c-description-list pf-m-inline">
+        <dt>
+          <span className="pf-c-description-list__icon">
+            <StatusIcon isReady={true} />
+          </span>
+          <span className="pf-c-description-list__num">
+            {successList.length}
+          </span>
+        </dt>
+        <dd>
           Connected
-        </GridItem>
-      </Grid>
-      <Grid>
-        <GridItem span={1} style={{ textAlign: 'center', margin: 'auto' }}>
-          <StatusIcon isReady={false} />
-        </GridItem>
-        <GridItem span={1} style={{ fontSize: '28px' }}>
-          {failureList.length}
-        </GridItem>
-        <GridItem span={10} style={{ margin: 'auto 0 auto 0' }}>
+        </dd>
+        <dt>
+          <span className="pf-c-description-list__icon">
+            <StatusIcon isReady={false} />
+          </span>
+          <span className="pf-c-description-list__num">
+            {failureList.length}
+          </span>
+        </dt>
+        <dd>
           Connection failed
-        </GridItem>
-      </Grid>
+        </dd>
+      </dl>
     </React.Fragment>
   );
 };
