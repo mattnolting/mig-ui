@@ -7,17 +7,13 @@ import { AddCircleOIcon } from '@patternfly/react-icons';
 
 const PlanEmptyState = ({ toggleOpen, plansDisabled }) => {
   return (
-    <Flex alignItems="center" justifyContent="center">
-      <Box>
-        <EmptyState variant="large">
-          <EmptyStateIcon icon={AddCircleOIcon} />
-          <Title size="lg">No currently started plans</Title>
-          <Button isDisabled={plansDisabled} onClick={toggleOpen} variant="primary">
-            Add plan
-          </Button>
-        </EmptyState>
-      </Box>
-    </Flex>
+    <EmptyState variant="full">
+      <EmptyStateIcon icon={AddCircleOIcon} />
+      <Title size="lg">No currently started plans</Title>
+      <Button isDisabled={plansDisabled} onClick={toggleOpen} variant="primary">
+        Add plan
+      </Button>
+    </EmptyState>
   );
 };
 

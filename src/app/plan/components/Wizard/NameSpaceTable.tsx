@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import { TextContent, TextList, TextListItem } from '@patternfly/react-core';
+import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 interface INamespaceTableProps {
@@ -55,11 +55,11 @@ const NamespaceTable: React.FunctionComponent<INamespaceTableProps> = props => {
   if (values.sourceCluster !== null) {
     return (
       <React.Fragment>
-        <StyledTextContent>
-          <TextList component="dl">
-            <TextListItem component="dt">Select projects to be migrated: </TextListItem>
-          </TextList>
-        </StyledTextContent>
+        <TextContent>
+          <Text component={TextVariants.p}>
+            Select projects to be migrated:
+          </Text>
+        </TextContent>
 
         <ReactTable
           css={css`

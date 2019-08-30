@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { useState, useEffect } from 'react';
 import { Box, Flex, Text } from '@rebass/emotion';
 import theme from '../../../../theme';
-import { TextContent, TextList, TextListItem } from '@patternfly/react-core';
+import { Form, FormGroup, Grid, GridItem, TextInput, TextContent, TextList, TextListItem } from '@patternfly/react-core';
 import Select from 'react-select';
 import NamespaceTable from './NameSpaceTable';
 import Loader from 'react-loader-spinner';
@@ -141,7 +141,89 @@ const ResourceSelectForm = props => {
     setFieldTouched('targetCluster');
   };
   return (
-    <Box>
+    <Form isHorizontal>
+      <Grid xl={6} gutter="lg">
+        <GridItem>
+          <FormGroup
+            label="Source cluster"
+            isRequired
+            fieldId="sourceCluster"
+            helperText="Please select a source cluster"
+          >
+            <Select
+              name="sourceCluster"
+              id="sourceCluster"
+              onChange={handleSourceChange}
+              options={srcClusterOptions}
+              value={selectedSrcCluster}
+            />
+            {errors.sourceCluster && touched.sourceCluster && (
+              <div id="feedback">{errors.sourceCluster}</div>
+            )}
+          </FormGroup>
+        </GridItem>
+        <GridItem>
+          <FormGroup
+            label="Replication Repository"
+            isRequired
+            fieldId="selectedStorage"
+            helperText="Please select a replication repository"
+            >
+
+            <Select
+              name="selectedStorage"
+              id="selectedStorage"
+              onChange={handleStorageChange}
+              options={storageOptions}
+              value={selectedStorage}
+              />
+            {errors.selectedStorage && touched.selectedStorage && (
+              <div id="feedback">{errors.selectedStorage}</div>
+              )}
+          </FormGroup>
+        </GridItem>
+        <GridItem>
+          <FormGroup
+            label="Target Cluster"
+            isRequired
+            fieldId="targetCluster"
+            helperText="Please select a target cluster"
+            >
+            <Select
+              name="targetCluster"
+              id="targetCluster"
+              onChange={handleTargetChange}
+              options={targetClusterOptions}
+              value={selectedTargetCluster}
+              />
+            {errors.targetCluster && touched.targetCluster && (
+              <div id="feedback">{errors.targetCluster}</div>
+              )}
+          </FormGroup>
+        </GridItem>
+      </Grid>
+      {isFetchingNamespaceList ? (
+        <Flex
+          css={css`
+            height: 100%;
+            text-align: center;
+          `}
+        >
+          <Box flex="1" m="auto">
+            <Loader type="ThreeDots" color={theme.colors.navy} height="100" width="100" />
+            <Text fontSize={[2, 3, 4]}> Discovering namespaces</Text>
+          </Box>
+        </Flex>
+      ) : (
+        <NamespaceTable
+          setFieldValue={setFieldValue}
+          values={values}
+          sourceClusterNamespaces={sourceClusterNamespaces}
+        />
+      )}
+    </Form>
+  );
+    {/* <Box>
       <Flex>
         <Box>
           <TextContent>
@@ -215,8 +297,7 @@ const ResourceSelectForm = props => {
           sourceClusterNamespaces={sourceClusterNamespaces}
         />
       )}
-    </Box>
-  );
+    </Box> */}
 };
 
 export default ResourceSelectForm;

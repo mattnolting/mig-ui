@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Box } from '@rebass/emotion';
+// import { Flex, Box } from '@rebass/emotion';
 import { DataList, DataListContent } from '@patternfly/react-core';
 import ClusterItem from './ClusterItem';
 import { AddCircleOIcon } from '@patternfly/react-icons';
@@ -34,17 +34,13 @@ const ClusterContent = ({
           })}
         </DataList>
       ) : (
-        <Flex alignItems="center" justifyContent="center">
-          <Box>
-            <EmptyState variant="large">
-              <EmptyStateIcon icon={AddCircleOIcon} />
-              <Title size="lg">Add source and target clusters for the migration</Title>
-              <Button onClick={() => toggleOpen(!isOpen)} variant="primary">
-                Add cluster
-              </Button>
-            </EmptyState>
-          </Box>
-        </Flex>
+        <EmptyState variant="full">
+          <EmptyStateIcon icon={AddCircleOIcon} />
+          <Title size="lg">Add source and target clusters for the migration</Title>
+          <Button onClick={() => toggleOpen(!isOpen)} variant="primary">
+            Add cluster
+          </Button>
+        </EmptyState>
       )}
       <AddEditClusterModal
         isOpen={isOpen}

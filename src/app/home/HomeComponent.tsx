@@ -50,33 +50,50 @@ interface IProps {
 }
 
 const HomeComponent: React.FunctionComponent<IProps> = (props) => {
-  const StyledPageHeader = styled(PageHeader)`
-      .pf-c-brand {
-        height: 2.5em;
-      }
-      background-color: #151515 !important;
-      .pf-c-page__header-brand {
-        background-color: #151515 !important;
-        min-width: 56em;
-      }
-      -moz-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
-      -webkit-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
-      box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
-      text-decoration: none;
-      .pf-c-page__header-brand-link {
-        text-decoration: none;
-      }
-    `;
+  // const StyledPageHeader = styled(PageHeader)`
+  //     .pf-c-brand {
+  //       height: 2.5em;
+  //     }
+  //     background-color: #151515 !important;
+  //     .pf-c-page__header-brand {
+  //       background-color: #151515 !important;
+  //       min-width: 56em;
+  //     }
+  //     -moz-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
+  //     -webkit-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
+  //     box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
+  //     text-decoration: none;
+  //     .pf-c-page__header-brand-link {
+  //       text-decoration: none;
+  //     }
+  //   `;
 
+  // const Header = (
+  //   <StyledPageHeader
+  //     logo={
+  //       <React.Fragment>
+  //         <Brand src={openshiftLogo} alt="OpenShift Logo" />
+  //       </React.Fragment>
+  //     }
+  //   />
+  // );
+
+  const logoProps = {
+    href: 'https://patternfly.org',
+    onClick: () => console.log('clicked logo'),
+    target: '_blank'
+  };
   const Header = (
-    <StyledPageHeader
+    <PageHeader
       logo={
         <React.Fragment>
           <Brand src={openshiftLogo} alt="OpenShift Logo" />
         </React.Fragment>
       }
+      logoProps={logoProps}
     />
   );
+
 
   const {
     allClusters,
@@ -171,7 +188,7 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
     <Page header={Header}>
       <PageSection>
         <Grid gutter="md">
-          <GridItem span={4}>
+          <GridItem md={6} lg={4}>
             <DashboardCard
               type="clusters"
               title="Clusters"
@@ -180,7 +197,7 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
               isError={isClusterError}
             />
           </GridItem>
-          <GridItem span={4}>
+          <GridItem md={6} lg={4}>
             <DashboardCard
               title="Replication Repositories"
               type="repositories"
@@ -189,7 +206,7 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
               isError={isStorageError}
             />
           </GridItem>
-          <GridItem span={4}>
+          <GridItem md={6} lg={4}>
             <DashboardCard
               type="plans"
               title="Migration Plans"
@@ -202,30 +219,26 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
         </Grid>
       </PageSection>
       <PageSection>
-        <Flex justifyContent="center">
-          <Box flex="0 0 100%">
-            <PollingContext.Provider value={{
-              startDefaultClusterPolling: () => startDefaultClusterPolling(),
-              startDefaultStoragePolling: () => startDefaultStoragePolling(),
-              startDefaultPlanPolling: () => startDefaultPlanPolling(),
-              stopClusterPolling: () => stopClusterPolling(),
-              stopStoragePolling: () => stopStoragePolling(),
-              stopPlanPolling: () => stopPlanPolling(),
-              startAllDefaultPolling: () => {
-                startDefaultClusterPolling();
-                startDefaultStoragePolling();
-                startDefaultPlanPolling();
-              },
-              stopAllPolling: () => {
-                stopClusterPolling();
-                stopStoragePolling();
-                stopPlanPolling();
-              }
-            }}>
-              <DetailViewComponent />
-            </PollingContext.Provider>
-          </Box>
-        </Flex>
+        <PollingContext.Provider value={{
+          startDefaultClusterPolling: () => startDefaultClusterPolling(),
+          startDefaultStoragePolling: () => startDefaultStoragePolling(),
+          startDefaultPlanPolling: () => startDefaultPlanPolling(),
+          stopClusterPolling: () => stopClusterPolling(),
+          stopStoragePolling: () => stopStoragePolling(),
+          stopPlanPolling: () => stopPlanPolling(),
+          startAllDefaultPolling: () => {
+            startDefaultClusterPolling();
+            startDefaultStoragePolling();
+            startDefaultPlanPolling();
+          },
+          stopAllPolling: () => {
+            stopClusterPolling();
+            stopStoragePolling();
+            stopPlanPolling();
+          }
+        }}>
+          <DetailViewComponent />
+        </PollingContext.Provider>
       </PageSection>
       <PageSection>
         {/* <TODO: footer content */}

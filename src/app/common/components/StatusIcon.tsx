@@ -12,11 +12,9 @@ interface IProps {
 const StatusIcon: React.FunctionComponent<IProps> = ({ isReady, ...rest }) => {
   const SuccessIcon = styled(CheckCircleIcon)`
     color: ${theme.colors.statusGreen};
-    margin-right: 0.75rem;
   `;
   const FailureIcon = styled(ExclamationCircleIcon)`
     color: ${theme.colors.statusRed};
-    margin-right: 0.75rem;
   `;
   if (isReady) {
     return (

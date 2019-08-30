@@ -69,14 +69,15 @@ const ConnectionStatusLabel: React.FunctionComponent<IProps> = ({ status, status
 
   const StatusIcon: any = getStatusIcon(status);
   return (
-    <Flex>
-      <Box>
+    // need to hide this when not applicable
+    <div className="pf-l-flex">
+      <div className="pf-l-flex__item">
         <StatusIcon />
-      </Box>
-      <Box>
-        <Text m="0 0 0 1em">{statusText}</Text>
-      </Box>
-    </Flex>
+      </div>
+      <div className="pf-l-flex__item">
+        {statusText}
+      </div>
+    </div>
   );
 };
 
