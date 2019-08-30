@@ -33,10 +33,7 @@
     grid-row-gap: var(--pf-c-description-list--m-inline--GridRowGap);
     align-items: baseline;
     word-break: break-word;
-
-    @media screen and (min-width: $pf-global--breakpoint--sm) {
-      grid-template: auto / max-content auto;
-    }
+    grid-template: auto / max-content auto;
 
     dt {
       max-width: 100%;

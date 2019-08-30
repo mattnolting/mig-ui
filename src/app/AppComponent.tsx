@@ -70,18 +70,14 @@ const AppComponent: React.SFC<IProps> = ({
         </NotificationContainer>
       )}
 
-      <Box>
-        <ThemeProvider theme={theme}>
-          <ConnectedRouter history={history}>
-            <Switch>
-              <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} component={HomeComponent} />
-              <Route path="/login" component={LoginComponent} />
-              <Route path="/cert-error" component={CertErrorComponent} />
-            </Switch>
-          </ConnectedRouter>
-        </ThemeProvider>
-      </Box>
-      {/* <Global
+      <ConnectedRouter history={history}>
+        <Switch>
+          <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} component={HomeComponent} />
+          <Route path="/login" component={LoginComponent} />
+          <Route path="/cert-error" component={CertErrorComponent} />
+        </Switch>
+      </ConnectedRouter>
+      <Global
         styles={css`
         body html,
         body,
@@ -94,7 +90,7 @@ const AppComponent: React.SFC<IProps> = ({
           background-color: #ededed;
         }
       `}
-      /> */}
+      />
       <Global
         styles={{
           'body.noScroll': {

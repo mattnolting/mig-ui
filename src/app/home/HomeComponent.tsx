@@ -50,33 +50,50 @@ interface IProps {
 }
 
 const HomeComponent: React.FunctionComponent<IProps> = (props) => {
-  const StyledPageHeader = styled(PageHeader)`
-      .pf-c-brand {
-        height: 2.5em;
-      }
-      background-color: #151515 !important;
-      .pf-c-page__header-brand {
-        background-color: #151515 !important;
-        min-width: 56em;
-      }
-      -moz-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
-      -webkit-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
-      box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
-      text-decoration: none;
-      .pf-c-page__header-brand-link {
-        text-decoration: none;
-      }
-    `;
+  // const StyledPageHeader = styled(PageHeader)`
+  //     .pf-c-brand {
+  //       height: 2.5em;
+  //     }
+  //     background-color: #151515 !important;
+  //     .pf-c-page__header-brand {
+  //       background-color: #151515 !important;
+  //       min-width: 56em;
+  //     }
+  //     -moz-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
+  //     -webkit-box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
+  //     box-shadow: 0 0.0625rem 0.125rem 0 rgba(3, 3, 3, 0.2);
+  //     text-decoration: none;
+  //     .pf-c-page__header-brand-link {
+  //       text-decoration: none;
+  //     }
+  //   `;
 
+  // const Header = (
+  //   <StyledPageHeader
+  //     logo={
+  //       <React.Fragment>
+  //         <Brand src={openshiftLogo} alt="OpenShift Logo" />
+  //       </React.Fragment>
+  //     }
+  //   />
+  // );
+
+  const logoProps = {
+    href: 'https://patternfly.org',
+    onClick: () => console.log('clicked logo'),
+    target: '_blank'
+  };
   const Header = (
-    <StyledPageHeader
+    <PageHeader
       logo={
         <React.Fragment>
           <Brand src={openshiftLogo} alt="OpenShift Logo" />
         </React.Fragment>
       }
+      logoProps={logoProps}
     />
   );
+
 
   const {
     allClusters,

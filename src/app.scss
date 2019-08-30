@@ -23,3 +23,19 @@ $mig-ui-breakpoint-list: build-breakpoint-map("base", "sm", "md", "lg", "xl", "2
     }
   }
 }
+
+.pf-c-page {
+  height: 100vh;
+}
+
+.pf-c-brand {
+  width: 100%;
+
+  @media screen and (min-width: $pf-global--breakpoint--md) {
+    width: 450px;
+  }
+}
+
+.pf-c-data-list__expandable-content {
+  max-height: none;
+}
