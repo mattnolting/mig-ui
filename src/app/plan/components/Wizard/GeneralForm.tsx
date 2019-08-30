@@ -2,6 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Box, Text } from '@rebass/emotion';
 import {
+  Form,
+  FormGroup,
   TextInput,
   TextContent,
   TextList,
@@ -28,7 +30,28 @@ const GeneralForm: React.SFC<IProps & RouteComponentProps> = ({
 
   return (
     <React.Fragment>
-      <Box>
+      <Form isHorizontal>
+        <FormGroup
+          label="Plan name"
+          isRequired
+          fieldId="planName"
+          helperText="Please provide a plan name"
+        >
+          <TextInput
+            isRequired
+            type="text"
+            id="planName"
+            name="planName"
+            aria-describedby="planName"
+            value={values.planName}
+            onChange={(val, e) => onHandleChange(val, e)}
+            onInput={() => setFieldTouched('planName', true, true)}
+            onBlur={handleBlur}
+            isValid={!errors.planName && touched.planName}
+          />
+        </FormGroup>
+      </Form>
+      {/* <Box>
         <TextContent>
           <TextList component="dl">
             <TextListItem component="dt">Plan Name</TextListItem>
@@ -48,7 +71,7 @@ const GeneralForm: React.SFC<IProps & RouteComponentProps> = ({
             <FormErrorDiv id="feedback">{errors.planName}</FormErrorDiv>
           )}
         </TextContent>
-      </Box>
+      </Box> */}
     </React.Fragment>
   );
 };

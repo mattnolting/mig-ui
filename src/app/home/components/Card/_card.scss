@@ -10,7 +10,7 @@
 
   // Inline
   --pf-c-description-list--m-inline--GridColumnGap: var(--pf-global--spacer--md);
-  // --pf-c-description-list--m-inline--GridRowGap: var(--pf-global--spacer--md);
+  --pf-c-description-list--m-inline--GridRowGap: var(--pf-global--spacer--sm);
 
   // Num
   --pf-c-description-list__num--FontSize: var(--pf-global--FontSize--3xl);
@@ -34,9 +34,8 @@
     align-items: baseline;
     word-break: break-word;
 
-    @media screen and (min-width: $pf-global--breakpoint--md) {
+    @media screen and (min-width: $pf-global--breakpoint--sm) {
       grid-template: auto / max-content auto;
-      grid-row-gap: auto;
     }
 
     dt {
@@ -44,10 +43,6 @@
 
       @media screen and (min-width: $pf-global--breakpoint--md) {
         max-width: 120px;
-      }
-
-      @media screen and (min-width: $pf-global--breakpoint--lg) {
-        max-width: 220px;
       }
     }
   }

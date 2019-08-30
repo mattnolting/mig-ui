@@ -81,7 +81,7 @@ const AppComponent: React.SFC<IProps> = ({
           </ConnectedRouter>
         </ThemeProvider>
       </Box>
-      <Global
+      {/* <Global
         styles={css`
         body html,
         body,
@@ -94,7 +94,7 @@ const AppComponent: React.SFC<IProps> = ({
           background-color: #ededed;
         }
       `}
-      />
+      /> */}
       <Global
         styles={{
           'body.noScroll': {

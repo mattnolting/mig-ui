@@ -57,7 +57,7 @@ class DashboardCard extends Component<IProps, IState> {
       );
     }
     return (
-      <Card className="pf-m-dashboard-card">
+      <Card>
         {dataList && !isFetching ? (
           <React.Fragment>
             <CardHeader>

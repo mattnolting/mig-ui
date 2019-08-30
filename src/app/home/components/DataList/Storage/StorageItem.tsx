@@ -6,6 +6,11 @@ import {
   DataListCell,
   DataListItemCells,
   DataListItemRow,
+  DataListAction,
+  Dropdown,
+  DropdownItem,
+  DropdownPosition,
+  KebabToggle
 } from '@patternfly/react-core';
 import StatusIcon from '../../../../common/components/StatusIcon';
 import AddEditStorageModal from '../../../../storage/components/AddEditStorageModal';
@@ -59,52 +64,117 @@ const StorageItem = ({ storage, storageIndex, isLoading, removeStorage, ...props
     toggleIsAddEditModalOpen();
   };
 
+  this.state = { isOpen1: false, isOpen2: false, isOpen3: false };
+
+  this.onToggle1 = isOpen1 => {
+    this.setState({ isOpen1 });
+  };
+
+  this.onSelect1 = event => {
+    this.setState(prevState => ({
+      isOpen1: !prevState.isOpen1
+    }));
+  };
+
+  this.onToggle2 = isOpen2 => {
+    this.setState({ isOpen2 });
+  };
+
+  this.onSelect2 = event => {
+    this.setState(prevState => ({
+      isOpen2: !prevState.isOpen2
+    }));
+  };
+
+  this.onToggle3 = isOpen3 => {
+    this.setState({ isOpen3 });
+  };
+
+  this.onSelect3 = event => {
+    this.setState(prevState => ({
+      isOpen3: !prevState.isOpen3
+    }));
+  };
+
   return (
     <DataListItem key={storageIndex} aria-labelledby="">
       <DataListItemRow>
         <DataListItemCells
           dataListCells={[
             <DataListCell key={name} width={1}>
-              <StatusIcon isReady={storageStatus} />
-              <span id="simple-item1">{name}</span>
+              <div className="pf-l-flex">
+                <span className="pf-l-flex__item">
+                  <StatusIcon isReady={storageStatus} />
+                </span>
+                <span className="pf-l-flex__item">
+                  <span id="simple-item1">{name}</span>
+                </span>
+              </div>
             </DataListCell>,
+            // this isnt rendering properly
             <DataListCell key="url" width={2}>
               <a target="_blank" href={storage.MigStorage.spec.bucketName}>
-                {storage.MigStorage.spec.bucketName}
+                {storage.MigStorage.spec.bucketName} Need to update this url
               </a>
             </DataListCell>,
             <DataListCell key="count" width={2}>
-              <LinkIcon /> {associatedPlanCount} associated migration {planText}
-            </DataListCell>,
-            <DataListCell key="actions" width={2}>
-              <Flex justifyContent="flex-end">
-                <Box mx={1}>
-                  <Button onClick={editStorage} variant="secondary">
-                    Edit
-                  </Button>
-                  <AddEditStorageModal
-                    isOpen={isAddEditModalOpen}
-                    onHandleClose={toggleIsAddEditModalOpen}
-                    initialStorageValues={{
-                      name, bucketName, bucketRegion, accessKey, secret, s3Url,
-                    }}
-                  />
-                </Box>
-                <Box mx={1}>
-                  <Button onClick={toggleConfirmOpen} variant="danger" key="remove-action">
-                    Remove
-                  </Button>
-                  <ConfirmModal
-                    message={removeMessage}
-                    isOpen={isConfirmOpen}
-                    onHandleClose={handleRemoveStorage}
-                    id="confirm-storage-removal"
-                  />
-                </Box>
-              </Flex>
-            </DataListCell>,
+              <div className="pf-l-flex">
+                <span className="pf-l-flex__item">
+                  <LinkIcon />
+                </span>
+                <span className="pf-l-flex__item">
+                  {associatedPlanCount} associated migration {planText}
+                </span>
+              </div>
+            </DataListCell>
           ]}
         />
+        {/* Need to update this section */}
+        <DataListAction
+          className="pf-m-hidden-on-lg"
+          aria-labelledby="check-action-item2 check-action-action2"
+          id="check-action-action2"
+          aria-label="Actions"
+        >
+          <Dropdown
+            isPlain
+            position={DropdownPosition.right}
+            isOpen={this.state.isOpen2}
+            onSelect={this.onSelect2}
+            toggle={<KebabToggle onToggle={this.onToggle2} />}
+            dropdownItems={[
+              <DropdownItem key="pri-action2" component="button">Primary</DropdownItem>,
+              <DropdownItem key="sec-action2" component="button">Secondary</DropdownItem>,
+            ]}
+          />
+        </DataListAction>
+        <DataListAction
+          // update this section
+          className="pf-m-visible-on-lg pf-m-hidden"
+          aria-labelledby="check-action-item2 check-action-action2"
+          id={storageIndex}
+          aria-label="Actions"
+        >
+          <Button onClick={editStorage} variant="secondary">
+            Edit
+          </Button>
+          <AddEditStorageModal
+            isOpen={isAddEditModalOpen}
+            onHandleClose={toggleIsAddEditModalOpen}
+            initialStorageValues={{
+              name, bucketName, bucketRegion, accessKey, secret, s3Url,
+            }}
+          />
+          <Button onClick={toggleConfirmOpen} variant="danger" key="remove-action">
+            Remove
+          </Button>
+          <ConfirmModal
+            message={removeMessage}
+            isOpen={isConfirmOpen}
+            onHandleClose={handleRemoveStorage}
+            id="confirm-storage-removal"
+          />
+        </DataListAction>
       </DataListItemRow>
     </DataListItem>
   );

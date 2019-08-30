@@ -181,7 +181,60 @@ const InnerAddEditStorageForm = (props: IOtherProps & FormikProps<IFormValues>) 
           <FormErrorDiv id="feedback-secret-key">{errors.secret}</FormErrorDiv>
         )}
       </FormGroup>
-      <Flex flexDirection="column">
+      <div className="pf-l-flex pf-m-column">
+        <div className="pf-l-flex">
+          <div className="pf-l-flex__item">
+            <Button
+              type="submit"
+              isDisabled={isAddEditButtonDisabled(
+                currentStatus, errors, touched, valuesHaveUpdate(values, currentStorage)
+              )}
+              style={{ marginRight: '10px' }}
+            >
+              {addEditButtonTextFn(currentStatus)}
+            </Button>
+          </div>
+          <div className="pf-l-flex__item">
+            <Tooltip
+              position={TooltipPosition.top}
+              content={<div>
+                Add or edit your storage details
+              </div>}><OutlinedQuestionCircleIcon />
+            </Tooltip>
+          </div>
+          <div className="pf-l-flex__item">
+            <Button
+              style={{ marginLeft: '10px', marginRight: '10px' }}
+              isDisabled={isCheckConnectionButtonDisabled(
+                currentStatus, valuesHaveUpdate(values, currentStorage),
+              )}
+              onClick={() => checkConnection(values.name)}
+            >
+              Check Connection
+            </Button>
+          </div>
+          <div className="pf-l-flex__item">
+            <Tooltip
+              position={TooltipPosition.top}
+              content={<div>
+                Re-check your storage connection state
+              </div>}><OutlinedQuestionCircleIcon />
+            </Tooltip>
+          </div>
+        </div>
+        <div className="pf-l-flex__item">
+          <ConnectionStatusLabel
+            status={currentStatus}
+            statusText={currentStatusFn(currentStatus)}
+          />
+        </div>
+        <div className="pf-l-flex__item">
+          <Button variant="primary" onClick={onClose}>
+            Close
+          </Button>
+        </div>
+      </div>
+      {/* <Flex flexDirection="column">
         <Box m="0 0 1em 0 ">
           <Button
             type="submit"
@@ -225,7 +278,7 @@ const InnerAddEditStorageForm = (props: IOtherProps & FormikProps<IFormValues>) 
             Close
           </Button>
         </Box>
-      </Flex>
+      </Flex> */}
     </Form>
   );
 };

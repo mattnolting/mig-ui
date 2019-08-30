@@ -79,12 +79,14 @@ const MigrationsTable: React.FunctionComponent<IProps> = ({ migrations }) => {
           //@ts-ignore
           cells={columns}
           rows={currentRows}
+          // this isnt working, might be a react bug
+          gridBreakPoint='grid-xl'
         >
           <TableHeader />
           <TableBody />
         </Table>
       ) : (
-          <EmptyState variant="large">No migrations started</EmptyState>
+          <EmptyState variant="full">No migrations started</EmptyState>
         )}
     </React.Fragment>
   );

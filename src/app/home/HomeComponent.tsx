@@ -171,7 +171,7 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
     <Page header={Header}>
       <PageSection>
         <Grid gutter="md">
-          <GridItem lg={4}>
+          <GridItem md={6} lg={4}>
             <DashboardCard
               type="clusters"
               title="Clusters"
@@ -180,7 +180,7 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
               isError={isClusterError}
             />
           </GridItem>
-          <GridItem lg={4}>
+          <GridItem md={6} lg={4}>
             <DashboardCard
               title="Replication Repositories"
               type="repositories"
@@ -189,7 +189,7 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
               isError={isStorageError}
             />
           </GridItem>
-          <GridItem lg={4}>
+          <GridItem md={6} lg={4}>
             <DashboardCard
               type="plans"
               title="Migration Plans"
@@ -200,62 +200,28 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
             />
           </GridItem>
         </Grid>
-        {/* <Grid gutter="md">
-          <GridItem span={4}>
-            <DashboardCard
-              type="clusters"
-              title="Clusters"
-              dataList={allClusters}
-              isFetching={isFetchingClusters}
-              isError={isClusterError}
-            />
-          </GridItem>
-          <GridItem span={4}>
-            <DashboardCard
-              title="Replication Repositories"
-              type="repositories"
-              dataList={allStorage}
-              isFetching={isFetchingStorage}
-              isError={isStorageError}
-            />
-          </GridItem>
-          <GridItem span={4}>
-            <DashboardCard
-              type="plans"
-              title="Migration Plans"
-              planStatusCounts={planStatusCounts}
-              dataList={allPlans}
-              isFetching={isFetchingPlans}
-              isError={isPlanError}
-            />
-          </GridItem>
-        </Grid> */}
       </PageSection>
       <PageSection>
-        <Flex justifyContent="center">
-          <Box flex="0 0 100%">
-            <PollingContext.Provider value={{
-              startDefaultClusterPolling: () => startDefaultClusterPolling(),
-              startDefaultStoragePolling: () => startDefaultStoragePolling(),
-              startDefaultPlanPolling: () => startDefaultPlanPolling(),
-              stopClusterPolling: () => stopClusterPolling(),
-              stopStoragePolling: () => stopStoragePolling(),
-              stopPlanPolling: () => stopPlanPolling(),
-              startAllDefaultPolling: () => {
-                startDefaultClusterPolling();
-                startDefaultStoragePolling();
-                startDefaultPlanPolling();
-              },
-              stopAllPolling: () => {
-                stopClusterPolling();
-                stopStoragePolling();
-                stopPlanPolling();
-              }
-            }}>
-              <DetailViewComponent />
-            </PollingContext.Provider>
-          </Box>
-        </Flex>
+        <PollingContext.Provider value={{
+          startDefaultClusterPolling: () => startDefaultClusterPolling(),
+          startDefaultStoragePolling: () => startDefaultStoragePolling(),
+          startDefaultPlanPolling: () => startDefaultPlanPolling(),
+          stopClusterPolling: () => stopClusterPolling(),
+          stopStoragePolling: () => stopStoragePolling(),
+          stopPlanPolling: () => stopPlanPolling(),
+          startAllDefaultPolling: () => {
+            startDefaultClusterPolling();
+            startDefaultStoragePolling();
+            startDefaultPlanPolling();
+          },
+          stopAllPolling: () => {
+            stopClusterPolling();
+            stopStoragePolling();
+            stopPlanPolling();
+          }
+        }}>
+          <DetailViewComponent />
+        </PollingContext.Provider>
       </PageSection>
       <PageSection>
         {/* <TODO: footer content */}
