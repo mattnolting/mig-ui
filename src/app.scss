@@ -1,0 +1,14 @@
+@import '@patternfly/patternfly/sass-utilities/_all.scss';
+@import '@patternfly/patternfly/layouts/Flex/flex.scss';
+
+#root {
+  height: 100vh;
+}
+
+.pf-c-brand {
+  width: 100%;
+
+  @media screen and (min-width: $pf-global--breakpoint--md) {
+    width: 450px;
+  }
+}

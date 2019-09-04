@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Flex, Box, Text } from '@rebass/emotion';
 import {
-  Page,
-  PageSection,
   Grid,
   GridItem,
+  Page,
+  PageSection,
 } from '@patternfly/react-core';
 import HeaderComponent from '../common/components/HeaderComponent';
 import DetailViewComponent from './DetailViewComponent';
@@ -77,15 +76,11 @@ const HomeComponent: React.FunctionComponent<IProps> = (props) => {
         </Grid>
       </PageSection>
       <PageSection>
-        <Flex justifyContent="center">
-          <Box flex="0 0 100%">
-            <DetailViewComponent />
-          </Box>
-        </Flex>
+        <DetailViewComponent />
       </PageSection>
-      <PageSection>
-        {/* <TODO: footer content */}
-      </PageSection>
+      {/* <PageSection>
+        <TODO: footer content
+      </PageSection> */}
     </Page>
   );
 };
